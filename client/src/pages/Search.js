@@ -2,15 +2,38 @@ import React, {useState, useEffect} from "react";
 import { Card, CardDeck } from "react-bootstrap";
 import { Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
+import API from "../utils/API";
 
 function Search() {
     const [criteria, setCriteria] = useState([])
 
     useEffect(() => {
-        
-    })
+        loadResults()
+    }, [])
 
+    function loadResults() {
 
+    }
+
+    function handleInputChange(event) {
+        const { name, value } = event.target;
+        setCriteria({...setcriteria, [name]:value})
+    };
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        if(criteria.title) {
+            API.getBooks({
+                image: criteria.image,
+                title: criteria.title,
+                author: criteria.author,
+                description: criteria.description,
+                link: criteria.link
+            })
+            .then(res => loadResults())
+            .catch(err => console.log(err));
+        }
+    };
 
 
     return(
@@ -21,8 +44,16 @@ function Search() {
             <Jumbotron>
                 <h1 style={{ paddingRight: 850 }}>Book Search</h1>
                 <h5 style={{ paddingRight: 850 }}>Book</h5>
-                <input placeholder="Search" style={{ width: 800, marginTop: 35, marginRight: 200}}></input>
-                <button style={{marginTop: 40, marginLeft: 700}}>Search</button>
+                <form 
+                    placeholder="Search" 
+                    style={{ width: 800, marginTop: 35, marginRight: 200}}
+                    onChange={handleInputChange}    
+                    >
+                </form>
+                <button 
+                    style={{marginTop: 40, marginLeft: 700}}
+                    onClick={handleFormSubmit}
+                    >Search</button>
             </Jumbotron>
             <Jumbotron>
                 <h5 style={{paddingRight: 1050 }}>Results:</h5>
