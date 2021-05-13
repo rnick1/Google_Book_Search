@@ -5,37 +5,37 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 
 function SearchBooks() {
-    const [searches, setSearches] = useState([])
-    const [searchResult, setSearchResult] = useState([])
+    const [search, setSearch] = useState([])
+    const [searchResults, setSearchResults] = useState([])
 
     useEffect(() => {
-        loadResults()
+        loadSearchResults()
     }, [])
 
-    function loadResults() {
+    function loadSearchResults() {
         API.getSearchResults()
         .then(res =>
-            setSearchResult(res.data)
+            setSearchResults(res.data)
             )
             .catch(err => console.log(err));
     };
 
     function handleInputChange(event) {
         const { name, value } = event.target;
-        setSearches({...searches, [name]:value})
+        setSearch({...search, [name]:value})
     };
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        if(searches.title) {
+        if(search.title) {
             API.getSearchResult({
-                image: searches.image,
-                title: searches.title,
-                author: searches.author,
-                description: searches.description,
-                link: searches.link
+                image: search.image,
+                title: search.title,
+                author: search.author,
+                description: search.description,
+                link: search.link
             })
-            .then(res => loadResults())
+            .then(res => loadSearchResults())
             .catch(err => console.log(err));
         }
     };
@@ -55,7 +55,7 @@ function SearchBooks() {
                         onChange={handleInputChange}    
                     />
                     <button 
-                        disabled={!(searches.title)}
+                        disabled={!(search.title)}
                         style={{marginTop: 40, marginLeft: 700}}
                         onClick={handleFormSubmit}
                     >Search</button>
@@ -63,21 +63,21 @@ function SearchBooks() {
             </Jumbotron>
             <Jumbotron>
                 <h5 style={{paddingRight: 1050 }}>Results:</h5>
-                {searches.length ? (
+                {searchResults.length ? (
                     <CardDeck>
-                        {searches.map(search => (
-                            <Card key={search._id}>
+                        {searchResults.map(searchResult => (
+                            <Card key={searchResult._id}>
                                 <Card.Img variant="top" src="holder.js/100px160" />
                                 <Card.Body>
-                                <Card.Title>{search.title}</Card.Title>
-                                <Card.Text>{search.author}</Card.Text>
+                                <Card.Title>{searchResult.title}</Card.Title>
+                                <Card.Text>{searchResult.author}</Card.Text>
                                 <Card.Text>
                                     This is a wider card with supporting text below as a natural lead-in to
                                     additional content. This content is a little bit longer.
                                 </Card.Text>
                                 </Card.Body>
                                 <Card.Footer>
-                                <button to={searches.link}>Click here for more information</button>
+                                <button to={searchResult.link}>Click here for more information</button>
                                 </Card.Footer>
                             </Card>
                         ))}
