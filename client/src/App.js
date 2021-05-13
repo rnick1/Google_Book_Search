@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Saved from "./pages/Saved";
+import SavedBooks from "./pages/SavedBooks";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
-import Search from "./pages/Search";
+import SearchBooks from "./pages/SearchBooks";
 
 function App() {
   return (
@@ -13,10 +13,10 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path={["/", "/search"]}>
-            <Search />
+            <SearchBooks />
           </Route>
           <Route exact path={["/saved"]}>
-            <Saved/>
+            <SavedBooks/>
           </Route>
           <Route>
             <NoMatch />

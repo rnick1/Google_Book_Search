@@ -7,7 +7,7 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
-function Saved() {
+function SavedBooks() {
   // Setting our component's initial state
   const [books, setBooks] = useState([])
   const [formObject, setFormObject] = useState({})
@@ -112,4 +112,4 @@ function Saved() {
   }
 
 
-export default Saved;
+export default SavedBooks;

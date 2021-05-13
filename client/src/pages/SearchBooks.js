@@ -4,8 +4,9 @@ import { Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 
-function Search() {
-    const [criteria, setCriteria] = useState([])
+function SearchBooks() {
+    const [search, setSearch] = useState([])
+    const [searchResult, setSearchResult] = useState([])
 
     useEffect(() => {
         loadResults()
@@ -17,7 +18,7 @@ function Search() {
 
     function handleInputChange(event) {
         const { name, value } = event.target;
-        setCriteria({...setcriteria, [name]:value})
+        setCriteria({...criteria, [name]:value})
     };
 
     function handleFormSubmit(event) {
@@ -107,4 +108,4 @@ function Search() {
     )
 }
 
-export default Search;
+export default SearchBooks;
