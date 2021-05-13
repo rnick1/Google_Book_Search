@@ -12,30 +12,43 @@ function SearchBooks() {
         loadSearchResults()
     }, [])
 
-    function loadSearchResults() {
-        API.getSearchResults()
-        .then(res =>
-            setSearchResults(res.data)
-            )
+    // function loadSearchResults() {
+    //     API.getSearchResults()
+    //     .then(res =>
+    //         setSearchResults(res.data)
+    //         )
+    //         .catch(err => console.log(err));
+    // };
+// ==============================
+function loadSearchResults (query) {
+        API.getSearchResults(query)
+            .then(res => setSearchResults(res.data))
             .catch(err => console.log(err));
     };
-
+// ===========================
     function handleInputChange(event) {
         const { name, value } = event.target;
-        setSearch({...search, [name]:value})
+        setSearch({...search, value})
     };
+
+// Previously:
+// setSearch({...search, [name]:value})
+
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        if(search.title) {
-            API.getSearchResult({
+        if(search) {
+            API.getSearchResults({
                 image: search.image,
                 title: search.title,
                 author: search.author,
                 description: search.description,
                 link: search.link
             })
-            .then(res => loadSearchResults())
+            .then(res => 
+                console.log(res),
+                // loadSearchResults()
+                )
             .catch(err => console.log(err));
         }
     };
@@ -53,9 +66,11 @@ function SearchBooks() {
                         placeholder="Title" 
                         style={{ width: 800, marginTop: 35, marginRight: 200}}
                         onChange={handleInputChange}    
+                        // value={search}
+                        // name="search"
+                        // type="text"
                     />
                     <button 
-                        disabled={!(search.title)}
                         style={{marginTop: 40, marginLeft: 700}}
                         onClick={handleFormSubmit}
                     >Search</button>
