@@ -108,8 +108,8 @@ function SavedBooks() {
           </Col>
         </Row>
       </Container>
-    );
-  }
+    )  
+    }
 
 
 export default SavedBooks;
