@@ -13,29 +13,32 @@ function SearchBooks() {
     }, [])
 
     function loadResults() {
-
-    }
+        API.getSearchResults()
+        .then(res =>
+            setSearchResult(res.data)
+            )
+            .catch(err => console.log(err));
+    };
 
     function handleInputChange(event) {
         const { name, value } = event.target;
-        setCriteria({...criteria, [name]:value})
+        setSearch({...search, [name]:value})
     };
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        if(criteria.title) {
-            API.getBooks({
-                image: criteria.image,
-                title: criteria.title,
-                author: criteria.author,
-                description: criteria.description,
-                link: criteria.link
+        if(search.title) {
+            API.getSearchResult({
+                image: search.image,
+                title: search.title,
+                author: search.author,
+                description: search.description,
+                link: search.link
             })
             .then(res => loadResults())
             .catch(err => console.log(err));
         }
     };
-
 
     return(
         <Container>
@@ -45,16 +48,19 @@ function SearchBooks() {
             <Jumbotron>
                 <h1 style={{ paddingRight: 850 }}>Book Search</h1>
                 <h5 style={{ paddingRight: 850 }}>Book</h5>
-                <form 
-                    placeholder="Search" 
+                <form>
+                    <input
+                    placeholder="Title" 
                     style={{ width: 800, marginTop: 35, marginRight: 200}}
                     onChange={handleInputChange}    
-                    >
-                </form>
-                <button 
+                    />
+                    <button 
+                    disabled={!(search.title)}
                     style={{marginTop: 40, marginLeft: 700}}
                     onClick={handleFormSubmit}
                     >Search</button>
+
+                </form>
             </Jumbotron>
             <Jumbotron>
                 <h5 style={{paddingRight: 1050 }}>Results:</h5>
