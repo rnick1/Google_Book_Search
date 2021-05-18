@@ -1,10 +1,10 @@
 # Google Book Search
 
-![image](https://github.com/rnick1/Responsive_Portfolio/blob/main/Assets/Images/About-Home.png)
+![image](client/src/images/book-search.png)
 
 #### by: rnick1
 
-[![Licenses](https://img.shields.io/badge/License-None-blue.svg)](client/src/images/book-search.png)
+[![Licenses](https://img.shields.io/badge/License-None-blue.svg)](https://opensource.org/licenses/None)
 
 ### **Table of Contents:**
 
